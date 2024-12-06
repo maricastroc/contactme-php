@@ -80,9 +80,9 @@ function old($field)
 
 function getErrors($validations, $field)
 {
-  $errors = isset($validations[$field]) ? $validations[$field] : [];
+    $errors = isset($validations[$field]) ? $validations[$field] : [];
 
-  return !empty($errors) ? $errors[0] : '';
+    return !empty($errors) ? implode('<br>', $errors) : '';
 }
 
 function redirect($uri)

@@ -24,7 +24,7 @@ use function Core\view;
 
       $rules = [
         'email' => ['required'],
-        'password' => ['required'],
+        'password' => ['required', 'min:8'],
       ];
 
       $validation = Validation::validate($rules, request()->all());

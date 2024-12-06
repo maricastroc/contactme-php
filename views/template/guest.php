@@ -1,21 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-theme="night">
-
-<style>
-  input:focus,
-  a:focus {
-    border-radius: 8px;
-    outline: 1px solid #94a3b8;
-    outline-offset: 0;
-  }
-
-  button:focus {
-    outline: 1px solid #f5f5f5;
-    outline-offset: 0;
-  }
-</style>
+<html lang="en" data-theme="forest">
 
 <head>
   <meta charset="UTF-8">
