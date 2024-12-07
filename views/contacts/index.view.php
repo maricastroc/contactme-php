@@ -63,7 +63,7 @@ $message = flash()->get('errors');
   }
 </style>
 
-<div class="overflow-auto w-full p-6 lg:p-10 rounded-3xl flex bg-secondary flex-col gap-4">
+<div class="lg:max-h-[85vh] overflow-auto w-full p-6 lg:p-10 rounded-3xl flex bg-secondary flex-col gap-4">
 
   <?php if (!empty($message)) : ?>
     <p class="text-indigo-400 font-mono mb-2 text-center">
@@ -110,7 +110,7 @@ $message = flash()->get('errors');
   <div class="flex gap-10 mt-6 flex-col lg:flex-row">
     <?php require base_path("views/partials/_filter-bar.view.php"); ?>
 
-    <div class="overflow-x-auto w-full">
+    <div class="overflow-x-auto w-full lg:max-h-[60vh]">
       <table class="table table-auto w-full">
         <thead>
           <tr class="border-b border-placeholder">
