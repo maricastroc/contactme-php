@@ -22,10 +22,6 @@ $message = flash()->get('errors');
     outline-offset: 0;
   }
 
-  .bg-primary {
-    background-color: #111111;
-  }
-
   .bg-secondary {
     background-color: #1B1B1B;
   }
@@ -58,35 +54,8 @@ $message = flash()->get('errors');
     border-color: #262626;
   }
 
-  .content-muted {
-    color: #5E5E5E;
-  }
-
-  .border-muted {
-    border-color: #5E5E5E;
-  }
-
-  .content-inverse {
-    color: #111111;
-  }
-
   .accent-brand {
     color: #C4F120;
-  }
-
-  .accent-red {
-    color: #E61E32;
-  }
-
-  .hero {
-    min-height: 100vh;
-  }
-
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
   input::placeholder {
@@ -172,7 +141,7 @@ $message = flash()->get('errors');
               <td class="content-body font-normal"><?= $contact->contact('email') ?></td>
               <th>
                 <div class="flex">
-                  <button <?php if (!session()->get('show')): ?> disabled <?php endif; ?> onclick="openEditModal(this)" class="btn border disabled:bg-zinc-900 border-tertiary btn-outline px-3 rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl" data-id="<?= $contact->id ?>" data-name="<?= htmlspecialchars($contact->name) ?>" data-phone="<?= htmlspecialchars($contact->phone) ?>" data-email="<?= htmlspecialchars($contact->email) ?>" data-description="<?= htmlspecialchars($contact->description) ?>" data-avatar="<?= htmlspecialchars($contact->avatar_url ?? '') ?>">
+                  <button <?php if (!session()->get('show')): ?> disabled <?php endif; ?> onclick="openEditModal(this)" class="btn border disabled:bg-zinc-900 border-tertiary btn-outline px-3 rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl" data-id="<?= $contact->id ?>" data-name="<?= htmlspecialchars($contact->name) ?>" data-phone="<?= htmlspecialchars($contact->contact('phone')) ?>" data-email="<?= htmlspecialchars($contact->contact('email')) ?>" data-description="<?= htmlspecialchars($contact->contact('description')) ?>" data-avatar="<?= htmlspecialchars($contact->avatar_url ?? '') ?>">
                     <i class="ph ph-pencil-simple text-md font-bold"></i> Edit
                   </button>
                   <button class="ml-2 btn border border-tertiary btn-outline w-[2rem] rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl"><i class="ph ph-lock-key text-md font-bold"></i></button>

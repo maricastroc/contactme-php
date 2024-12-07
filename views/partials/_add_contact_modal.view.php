@@ -24,75 +24,20 @@ $message = flash()->get('successfully_registered');
     background-color: #111111;
   }
 
-  .border-white {
-    border-color: #FFFFFF;
-  }
-
   .bg-secondary {
     background-color: #1B1B1B;
-  }
-
-  .bg-tertiary {
-    background-color: #303030;
   }
 
   .bg-brand {
     background-color: #C4F120;
   }
 
-  .border-tertiary {
-    border-color: #303030;
-  }
-
-  .content-primary {
-    color: #FFFFFF;
-  }
-
-  .content-body {
-    color: #E2E2E2;
-  }
-
-  .content-heading {
-    color: #C6C6C6;
-  }
-
-  .content-placeholder {
-    color: #777777;
-  }
-
   .border-placeholder {
     border-color: #262626;
   }
 
-  .content-muted {
-    color: #5E5E5E;
-  }
-
-  .border-muted {
-    border-color: #5E5E5E;
-  }
-
   .content-inverse {
     color: #111111;
-  }
-
-  .accent-brand {
-    color: #C4F120;
-  }
-
-  .accent-red {
-    color: #E61E32;
-  }
-
-  .hero {
-    min-height: 100vh;
-  }
-
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
   input::placeholder {

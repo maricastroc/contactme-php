@@ -24,14 +24,6 @@ $message = flash()->get('successfully_updated') ?: flash()->get('successfully_cr
     outline-offset: 0;
   }
 
-  .bg-primary {
-    background-color: #111111;
-  }
-
-  .bg-secondary {
-    background-color: #1B1B1B;
-  }
-
   .bg-tertiary {
     background-color: #303030;
   }
@@ -40,20 +32,8 @@ $message = flash()->get('successfully_updated') ?: flash()->get('successfully_cr
     background-color: #C4F120;
   }
 
-  .content-primary {
-    color: #FFFFFF;
-  }
-
   .content-body {
     color: #E2E2E2;
-  }
-
-  .content-heading {
-    color: #C6C6C6;
-  }
-
-  .content-placeholder {
-    color: #777777;
   }
 
   .content-muted {
@@ -68,20 +48,6 @@ $message = flash()->get('successfully_updated') ?: flash()->get('successfully_cr
     color: #C4F120;
   }
 
-  .accent-red {
-    color: #E61E32;
-  }
-
-  .hero {
-    min-height: 100vh;
-  }
-
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
 </style>
 
 <head>
