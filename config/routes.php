@@ -14,18 +14,16 @@ use Core\Route;
 
   ->get('/contacts', [Contacts\IndexController::class, 'index'], AuthMiddleware::class)
 
-  ->get('/contacts/create', [Contacts\CreateController::class, 'index'], AuthMiddleware::class)
-  ->post('/contacts/create', [Contacts\CreateController::class, 'create'], AuthMiddleware::class)
+  ->post('/contacts', [Contacts\CreateController::class, 'create'], AuthMiddleware::class)
 
-  ->put('/contact', [Contacts\UpdateController::class, 'update'], AuthMiddleware::class)
+  ->put('/contacts', [Contacts\UpdateController::class, 'update'], AuthMiddleware::class)
 
-  ->delete('/contact', [Contacts\DeleteController::class, 'delete'], AuthMiddleware::class)
-  ->get('/contact', [Contacts\DeleteController::class, 'index'], AuthMiddleware::class)
+  ->delete('/contacts', [Contacts\DeleteController::class, 'delete'], AuthMiddleware::class)
 
   ->get('/login', [LoginController::class, 'index'], GuestMiddleware::class)
   ->post('/login', [LoginController::class, 'login'], GuestMiddleware::class)
 
-  ->get('/logout', LogoutController::class, AuthMiddleware::class, AuthMiddleware::class)
+  ->get('/logout', LogoutController::class, AuthMiddleware::class)
 
   ->get('/register', [RegisterController::class, 'index'], GuestMiddleware::class)
   ->post('/register', [RegisterController::class, 'register'], GuestMiddleware::class)

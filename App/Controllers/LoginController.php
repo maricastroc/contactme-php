@@ -16,7 +16,7 @@ use function Core\view;
   class LoginController {
     
     public function index() {
-      return view('/login', template: 'guest');
+      return view('/index', template: 'guest');
     }
 
     public function login() {
@@ -33,7 +33,7 @@ use function Core\view;
 
       if (!empty($validations)) {
         flash()->push('validations', $validations);
-        return view('/login', template: 'guest');
+        return view('/index', template: 'guest');
       }
 
       $database = new Database(config('database'));
@@ -47,7 +47,7 @@ use function Core\view;
           'Incorrect e-mail or password!'
         ]]);
   
-        return view('login', template: 'guest');
+        return view('index', template: 'guest');
       }
   
       if (!password_verify(request()->post('password'), $user->password)) {
@@ -55,7 +55,7 @@ use function Core\view;
           'Incorrect e-mail or password!'
         ]]);
   
-        return view('login', template: 'guest');
+        return view('index', template: 'guest');
       }
 
       session()->set('auth', $user);

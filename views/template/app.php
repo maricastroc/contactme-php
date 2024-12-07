@@ -1,12 +1,15 @@
 <?php
 
+use function Core\auth;
 use function Core\base_path;
+use function Core\flash;
 
 $user = $_SESSION['auth'] ?? null;
+$message = flash()->get('successfully_updated') ?: flash()->get('successfully_created') ?: flash()->get('successfully_deleted');
 ?>
 
 <!DOCTYPE html>
-<html lang="en" data-theme="night">
+<html lang="en" data-theme="forest">
 
 <style>
   input:focus,
@@ -20,6 +23,65 @@ $user = $_SESSION['auth'] ?? null;
     outline: 1px solid #f5f5f5;
     outline-offset: 0;
   }
+
+  .bg-primary {
+    background-color: #111111;
+  }
+
+  .bg-secondary {
+    background-color: #1B1B1B;
+  }
+
+  .bg-tertiary {
+    background-color: #303030;
+  }
+
+  .bg-brand {
+    background-color: #C4F120;
+  }
+
+  .content-primary {
+    color: #FFFFFF;
+  }
+
+  .content-body {
+    color: #E2E2E2;
+  }
+
+  .content-heading {
+    color: #C6C6C6;
+  }
+
+  .content-placeholder {
+    color: #777777;
+  }
+
+  .content-muted {
+    color: #5E5E5E;
+  }
+
+  .content-inverse {
+    color: #111111;
+  }
+
+  .accent-brand {
+    color: #C4F120;
+  }
+
+  .accent-red {
+    color: #E61E32;
+  }
+
+  .hero {
+    min-height: 100vh;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
 
 <head>
@@ -29,22 +91,65 @@ $user = $_SESSION['auth'] ?? null;
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>ContactMe</title>
+  <title>Guard</title>
 </head>
 
-<body class="bg-base-100 text-neutral-100">
-<div class="mx-auto max-w-screen-lg h-screen flex flex-col lg:max-h-screen lg:overflow-hidden">
+<body class="bg-[#111111] overflow-auto lg:overflow-hidden text-neutral-100 flex flex-col lg:flex-row justify-center h-full lg:max-h-[100vh]">
+<?php if (!empty($message)) : ?>
+    <p class="text-indigo-400 font-mono mb-2 text-center">
+    <div class="toast toast-top toast-end" id="toastMessage">
+      <div class="alert alert-success bg-brand">
+        <span><?= htmlspecialchars($message) ?></span>
+      </div>
+    </div>
+    </p>
+  <?php endif; ?>
+  <div class="flex flex-col md:flex-row md:gap-10 items-center justify-center gap-3 lg:flex-col lg:gap-0 lg:justify-between max-h-screen py-10 pl-10">
+    <img src="/data/images/project/small_logo.svg" alt="Logo" class="z-10 w-8 h-8" />
+    <ul class="menu flex flex-row lg:flex-col rounded-box overflow-auto gap-3">
+      <li>
+        <a href="/contacts" class="bg-tertiary w-10 h-10 flex items-center justify-center rounded-xl">
+          <i class="ph ph-user accent-brand font-bold text-xl"></i>
+        </a>
+      </li>
+      <li>
+        <a class="bg-tertiary w-10 h-10 flex items-center justify-center rounded-xl">
+          <i class="ph ph-gear font-bold text-xl"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/logout" class="bg-tertiary w-10 h-10 flex items-center justify-center rounded-xl">
+          <i class="ph ph-sign-out font-bold text-xl"></i>
+        </a>
+      </li>
+    </ul>
+    <div class="flex flex-col items-start gap-1">
+      <span class="text-sm content-muted">Logged with:</span>
+      <p class="text-sm content-body"><?= auth()->email ?></p>
+    </div>
+  </div>
 
-<?php require base_path('views/partials/_navbar.view.php'); ?>
+  <div class="overflow-auto mx-auto w-full justify-center px-4 lg:px-16 h-screen flex flex-col lg:max-h-screen lg:overflow-hidden">
 
-<?php require base_path('views/partials/_search.view.php'); ?>
-
-<?php require base_path('views/partials/_message.view.php'); ?>
-
-  <div class="flex flex-grow py-6 px-5">
     <?php require base_path("views/{$view}.view.php"); ?>
   </div>
-</div>
 </body>
 
 </html>
+
+<script>
+  window.onload = function() {
+    const toastMessage = document.getElementById("toastMessage");
+
+    if (toastMessage) {
+      setTimeout(function() {
+        toastMessage.style.transition = "opacity 0.5s ease-out";
+        toastMessage.style.opacity = "0";
+
+        setTimeout(function() {
+          toastMessage.remove();
+        }, 500);
+      }, 3000);
+    }
+  }
+</script>

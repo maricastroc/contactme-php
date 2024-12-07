@@ -10,15 +10,18 @@ use function Core\redirect;
 use function Core\request;
 use function Core\view;
 
-  class CreateController {
+class CreateController {
     
     public function create() {
+      $contacts = Contact::all();
+
       $validations = [];
 
       $rules = [
-        'first_name' => ['required', 'min:3', 'max:255'],
-        'last_name' => ['required', 'min:3', 'max:255'],
-        'phone_01' => ['required', 'min:7'],
+        'name' => ['required', 'min:3', 'max:255'],
+        'description' => ['required'],
+        'email' => ['required'],
+        'phone' => ['required', 'min:7'],
       ];
 
       $validation = Validation::validate($rules, request()->all());
@@ -27,17 +30,48 @@ use function Core\view;
 
       if (!empty($validations)) {
         flash()->push('validations', $validations);
-        return view('contacts/create');
-      }
+        return view('contacts/index', [
+          'contacts' => $contacts,
+            'validations' => $validations,
+            'old' => request()->all()
+        ]);
+    }
 
-      Contact::create(request()->all());
+      if (isset($_FILES['avatar_url']) && $_FILES['avatar_url']['error'] === UPLOAD_ERR_OK) {
+        $avatar = $_FILES['avatar_url'];
+
+        $uploadDir = 'data/images/contacts/';
+        
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
     
-      flash()->push('successfully_registered', 'Contact successfully created!');
+        $avatarName = uniqid('avatar_') . '.' . pathinfo($avatar['name'], PATHINFO_EXTENSION);
+        
+        $uploadPath = $uploadDir . $avatarName;
     
+        if (move_uploaded_file($avatar['tmp_name'], $uploadPath)) {
+            $avatarUrl = $uploadPath;
+            $data['avatar_url'] = $avatarUrl;
+        } else {
+            flash()->push('error', 'Failed to upload avatar.');
+            return redirect('/contacts');
+        }
+    } else {
+        flash()->push('error', 'No file uploaded or upload error.');
+        return redirect('/contacts');
+    }
+      $data = request()->all();
+
+      $data['avatar_url'] = isset($avatarUrl) ? $avatarUrl : ''; 
+
+      Contact::create($data);
+
+      flash()->push('successfully_created', 'Contact successfully created!');
       redirect('/contacts');
     }
 
     public function index() {
-      return view('/contacts/create');
+      return view('/contacts');
     }
-  }
+}

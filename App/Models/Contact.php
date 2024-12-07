@@ -13,11 +13,11 @@ use function Core\session;
   class Contact {
     public $id;
     public $user_id;
-    public $first_name;
-    public $last_name;
+    public $name;
     public $description;
-    public $phone_01;
-    public $phone_02;
+    public $phone;
+    public $email;
+    public $avatar_url;
     public $created_at;
     public $updated_at;
 
@@ -26,14 +26,14 @@ use function Core\session;
       $database = new Database(config('database'));
 
       $database->query(
-        query: "insert into contacts (user_id, first_name, last_name, description, phone_01, phone_02, created_at, updated_at) values (:user_id, :first_name, :last_name, :description, :phone_01, :phone_02, :created_at, :updated_at)",
+        query: "insert into contacts (user_id, name, email, phone, avatar_url, description, created_at, updated_at) values (:user_id, :name, :email, :phone, :avatar_url, :description, :created_at, :updated_at)",
         params: [
           'user_id' => auth()->id,
-          'first_name' => $data['first_name'],
-          'last_name' => $data['last_name'],
-          'description' => $data['description'] ?? null,
-          'phone_01' => secured_encrypt($data['phone_01']),
-          'phone_02' => secured_encrypt($data['phone_02']),
+          'name' => $data['name'],
+          'email' => secured_encrypt($data['email']),
+          'description' => secured_encrypt($data['description']),
+          'phone' => secured_encrypt($data['phone']),
+          'avatar_url' => $data['avatar_url'],
           'created_at' => date('Y-m-d H:i:s'),
           'updated_at' => date('Y-m-d H:i:s'),
         ],
@@ -44,28 +44,30 @@ use function Core\session;
     {
       $database = new Database(config('database'));
   
-      $set = "first_name = :first_name, last_name = :last_name, description = :description";
-  
-      if($data['phone_01']) {
-        $set .= ", phone_01 = :phone_01";
-      }
+      $set = "name = :name, email = :email, description = :description, avatar_url = :avatar_url, phone = :phone";
 
-      if($data['phone_02']) {
-        $set .= ", phone_02 = :phone_02";
-      }
   
       $database->query(
         query: "UPDATE contacts SET $set, updated_at = :updated_at WHERE id = :id",
-        params: array_merge([
+        params: [
           'id' => $data['id'],
-          'first_name' => $data['first_name'],
-          'last_name' => $data['last_name'],
-          'description' => $data['description'],
+          'name' => $data['name'],
+          'email' => secured_encrypt($data['email']),
+          'description' => secured_encrypt($data['description']),
+          'phone' => secured_encrypt($data['phone']),
+          'avatar_url' => $data['avatar_url'],
           'updated_at' => date('Y-m-d H:i:s'),
-        ], $data['phone_01'] ? ['phone_01' => secured_encrypt($data['phone_01']),] : [],
-        $data['phone_02'] ? ['phone_02' => secured_encrypt($data['phone_02']),] : [],
-      ),
+        ],
       );
+    }
+
+    public static function find($id)
+    {
+      $database = new Database(config('database'));
+
+      $query = $database->query("SELECT * FROM contacts WHERE id = :id", Contact::class, ['id' => $id]);
+  
+      return $query->fetch();
     }
 
     public static function all($search = null)
@@ -75,7 +77,7 @@ use function Core\session;
       $query = "SELECT * FROM contacts WHERE user_id = :user_id";
   
       if ($search) {
-        $query .= " AND (first_name LIKE :search OR last_name LIKE :search)";
+        $query .= " AND name LIKE :search OR email LIKE :search OR phone LIKE :search";
     }
   
       $params = ['user_id' => auth()->id];
@@ -103,12 +105,30 @@ use function Core\session;
       );
     }
 
-    public function contact($phone)
+    public function contact($attribute)
     {
       if(session()->get('show')) {
-        return secured_decrypt($this->$phone);
+        return secured_decrypt($this->$attribute);
       }
   
       return str_repeat('*', 12);
     }
+
+    public static function findByLetter($letter)
+{
+    $database = new Database(config('database'));
+
+    $query = "SELECT * FROM contacts WHERE user_id = :user_id AND name LIKE :letter";
+
+    $params = [
+        'user_id' => auth()->id,
+        'letter' => $letter . '%',
+    ];
+
+    return $database->query(
+        query: $query,
+        class: self::class,
+        params: $params
+    )->fetchAll();
+}
   }

@@ -4,12 +4,10 @@ namespace App\Controllers\Contacts;
 
 use Core\Validation;
 
-use function Core\auth;
 use function Core\flash;
 use function Core\redirect;
 use function Core\request;
 use function Core\session;
-use function Core\view;
 
   class ShowController {
     
@@ -25,16 +23,8 @@ use function Core\view;
       $validations = $validation->validations;
 
       if (!empty($validations)) {
-        flash()->push('validations', $validations);
-        return view('/contacts/confirm');
-      }
-
-      if (!password_verify(request()->post('password'), auth()->password)) {
-        flash()->push('validations', ['password' => [
-          'Incorrect password!'
-        ]]);
-  
-        return view('/contacts/confirm');
+        flash()->push('errors', 'Incorrect password.');
+        return redirect('/contacts');
       }
 
       session()->set('show', true);
@@ -49,7 +39,7 @@ use function Core\view;
     }
 
     public function confirm() {
-      return view('/contacts/confirm');
+      return redirect('/contacts');
     }
 
   }

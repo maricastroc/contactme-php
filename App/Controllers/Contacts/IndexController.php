@@ -7,30 +7,22 @@ use App\Models\Contact;
 use function Core\Request;
 use function Core\View;
 
-  class IndexController {
-    
-    public function index() {
-      $search = request()->get('search', '');
+class IndexController
+{
 
-      $contacts = Contact::all($search);
+    public function index()
+    {
+        $search = request()->get('search', '');
+        $letter = request()->get('letter', '');
 
-      $selectedContact = $this->getSelectedContact($contacts);
+        if ($letter) {
+            $contacts = Contact::findByLetter($letter);
+        } else {
+            $contacts = Contact::all($search);
+        }
 
-      if (!$selectedContact) {
-        return view('contacts/not-found');
-      }
-
-      return view('contacts/index', [
-        'contacts' => $contacts,
-        'selectedContact' => $selectedContact,
-      ]);
+        return view('contacts/index', [
+            'contacts' => $contacts,
+        ]);
     }
-
-    private function getSelectedContact($contacts) {
-      isset($_GET['id']) ? $id = $_GET['id'] : (sizeof($contacts) > 0 ? $id = $contacts[0]->id : null);
-
-      $filteredcontacts = array_filter($contacts, fn($n) => $n->id == $id);
-
-      return array_pop($filteredcontacts);
-  }
-  }
+}
