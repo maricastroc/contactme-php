@@ -3,6 +3,7 @@
 use App\Controllers\IndexController;
 use App\Controllers\LoginController;
 use App\Controllers\RegisterController;
+use App\Controllers\UpdateController;
 use App\Controllers\Contacts;
 use App\Controllers\LogoutController;
 use App\Middlewares\AuthMiddleware;
@@ -15,6 +16,7 @@ use Core\Route;
   ->get('/contacts', [Contacts\IndexController::class, 'index'], AuthMiddleware::class)
 
   ->post('/contacts', [Contacts\CreateController::class, 'create'], AuthMiddleware::class)
+  ->post('/contacts/user', UpdateController::class, AuthMiddleware::class)
 
   ->put('/contacts', [Contacts\UpdateController::class, 'update'], AuthMiddleware::class)
 

@@ -5,7 +5,7 @@ use function Core\base_path;
 use function Core\flash;
 
 $user = $_SESSION['auth'] ?? null;
-$message = flash()->get('successfully_updated') ?: flash()->get('successfully_created') ?: flash()->get('successfully_deleted');
+$message = flash()->get('successfully_updated') ?: flash()->get('updated_user') ?: flash()->get('successfully_created') ?: flash()->get('successfully_deleted');
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +70,9 @@ $message = flash()->get('successfully_updated') ?: flash()->get('successfully_cr
     </div>
     </p>
   <?php endif; ?>
+
+  <?php require base_path("views/partials/_edit_user_modal.view.php"); ?>
+
   <div class="flex flex-col md:flex-row md:gap-10 items-center justify-center gap-3 lg:flex-col lg:gap-0 lg:justify-between max-h-screen py-10 pl-10">
     <img src="/data/images/project/small_logo.svg" alt="Logo" class="z-10 w-8 h-8" />
     <ul class="menu flex flex-row lg:flex-col rounded-box overflow-auto gap-3">
@@ -79,9 +82,9 @@ $message = flash()->get('successfully_updated') ?: flash()->get('successfully_cr
         </a>
       </li>
       <li>
-        <a class="bg-tertiary w-10 h-10 flex items-center justify-center rounded-xl">
+        <button onclick="edit_user.showModal()" class="bg-tertiary w-10 h-10 flex items-center justify-center rounded-xl">
           <i class="ph ph-gear font-bold text-xl"></i>
-        </a>
+</button>
       </li>
       <li>
         <a href="/logout" class="bg-tertiary w-10 h-10 flex items-center justify-center rounded-xl">

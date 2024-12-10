@@ -74,28 +74,28 @@ $message = flash()->get('successfully_registered');
         <div class="label">
           <span class="label-text">Name</span>
         </div>
-        <input name="name" type="text" placeholder="e.g. Jon Doe" class="input bg-secondary rounded-xl input-bordered w-full" value="<?= old('first_name') ?>" />
+        <input required name="name" type="text" placeholder="e.g. Jon Doe" class="input bg-secondary rounded-xl input-bordered w-full" value="<?= old('first_name') ?>" />
       </label>
 
       <label class="form-control w-full">
         <div class="label">
           <span class="label-text">E-mail</span>
         </div>
-        <input value="<?= old('email') ?>" name="email" type="email" placeholder="user@email.com" class="input bg-secondary rounded-xl input-bordered w-full" />
+        <input required value="<?= old('email') ?>" name="email" type="email" placeholder="user@email.com" class="input bg-secondary rounded-xl input-bordered w-full" />
       </label>
 
       <label class="form-control w-full">
         <div class="label">
           <span class="label-text">Phone Number</span>
         </div>
-        <input value="<?= old('phone') ?>" name="phone" type="tel" pattern="\(\d{2}\) \d{4,5}-\d{4}" placeholder="(XX) XXXXX-XXXX" class="input bg-secondary rounded-xl input-bordered w-full" />
+        <input required value="<?= old('phone') ?>" name="phone" type="tel" pattern="\(\d{2}\) \d{4,5}-\d{4}" placeholder="(XX) XXXXX-XXXX" class="input bg-secondary rounded-xl input-bordered w-full" />
       </label>
 
       <label class="form-control">
         <div class="label">
           <span class="label-text">Description</span>
         </div>
-        <input value="<?= old('description') ?>" name="description" class="input bg-secondary rounded-xl input-bordered w-full" placeholder="e.g. work / friend / family" />
+        <input required value="<?= old('description') ?>" name="description" class="input bg-secondary rounded-xl input-bordered w-full" placeholder="e.g. work / friend / family" />
       </label>
 
       <div class="flex flex-col gap-1">

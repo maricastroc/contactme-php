@@ -5,14 +5,22 @@ use function Core\old;
 
 $validations = flash()->get('validations') ?? [];
 $message = flash()->get('successfully_registered');
+
 ?>
 
 <div class="flex flex-col md:grid md:grid-cols-2 bg-base-100">
   <div class="hero min-h-screen flex justify-center items-center px-4 md:px-10 lg:px-40 bg-[url('/data/images/project/bg-image.jpg')] bg-cover bg-center relative">
-
+  <?php if (!empty($message)) : ?>
+    <p class="text-indigo-400 font-mono mb-2 text-center">
+    <div class="toast toast-top toast-end" id="toastMessage">
+      <div class="alert alert-success">
+        <span><?= htmlspecialchars($message) ?></span>
+      </div>
+    </div>
+    </p>
+  <?php endif; ?>
     <img src="/data/images/project/logo.svg" alt="Logo" class="absolute top-8 left-16 z-10 w-32 h-16" />
   </div>
-
   <div class="bg-[#111111] flex justify-center items-center px-4 lg:px-10">
     <div class="w-full max-w-md">
       <form action="/login" method="post" class="w-full">
@@ -34,7 +42,7 @@ $message = flash()->get('successfully_registered');
             <div>
             <div class="flex flex-col mt-4 gap-2">
         <?php 
-        $fields = ['name', 'password'];
+        $fields = ['email', 'password'];
         foreach ($fields as $field) : 
           if (!empty($validations[$field])) : 
             foreach ($validations[$field] as $error) : ?>
