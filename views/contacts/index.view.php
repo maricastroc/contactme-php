@@ -144,7 +144,6 @@ $message = flash()->get('errors');
                   <button <?php if (!session()->get('show')): ?> disabled <?php endif; ?> onclick="openEditModal(this)" class="btn border disabled:bg-zinc-900 border-tertiary btn-outline px-3 rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl" data-id="<?= $contact->id ?>" data-name="<?= htmlspecialchars($contact->name) ?>" data-phone="<?= htmlspecialchars($contact->contact('phone')) ?>" data-email="<?= htmlspecialchars($contact->contact('email')) ?>" data-description="<?= htmlspecialchars($contact->contact('description')) ?>" data-avatar="<?= htmlspecialchars($contact->avatar_url ?? '') ?>">
                     <i class="ph ph-pencil-simple text-md font-bold"></i> Edit
                   </button>
-                  <button class="ml-2 btn border border-tertiary btn-outline w-[2rem] rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl"><i class="ph ph-lock-key text-md font-bold"></i></button>
                   <button data-id="<?= $contact->id ?>" id="delete_contact" onclick="openDeleteModal(this)" class="ml-2 btn border border-tertiary btn-outline w-[2rem] rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl"><i class="ph ph-trash-simple text-md font-bold"></i></button>
                 </div>
               </th>
