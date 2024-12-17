@@ -9,27 +9,30 @@ use function Core\flash;
 use function Core\redirect;
 use function Core\request;
 
-  class DeleteController {   
-    public function delete() {
-      $validations = [];
-  
-      $rules = [
-        'id' => ['required'],
-      ];
+class DeleteController
+{
+    public function delete()
+    {
+        $validations = [];
 
-      $validation = Validation::validate($rules, request()->all());
-  
-      $validations = $validation->validations;
+        $rules = [
+            'id' => ['required'],
+        ];
 
-      if (!empty($validations)) {
-        flash()->push('validations', $validations);
-        return redirect('/contacts');
-      }
-  
-      Contact::delete(request()->post('id'));
+        $validation = Validation::validate($rules, request()->all());
 
-      flash()->push('successfully_deleted', 'Contact successfully deleted!');
+        $validations = $validation->validations;
 
-      return redirect('contacts');
-  }
-  }
+        if (! empty($validations)) {
+            flash()->push('validations', $validations);
+
+            return redirect('/contacts');
+        }
+
+        Contact::delete(request()->post('id'));
+
+        flash()->push('successfully_deleted', 'Contact successfully deleted!');
+
+        return redirect('contacts');
+    }
+}

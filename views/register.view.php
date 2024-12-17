@@ -4,10 +4,10 @@ use function Core\flash;
 use function Core\old;
 
 $validations = flash()->get('validations') ?? [];
-;?>
+?>
 
 <div class="flex flex-col md:grid md:grid-cols-2 bg-base-100">
-<?php if (!empty($message)) : ?>
+<?php if (! empty($message)) { ?>
     <p class="text-indigo-400 font-mono mb-2 text-center">
     <div class="toast toast-top toast-start" id="toastMessage">
       <div class="alert alert-success">
@@ -15,7 +15,7 @@ $validations = flash()->get('validations') ?? [];
       </div>
     </div>
     </p>
-  <?php endif; ?>
+  <?php } ?>
   <div class="hero min-h-screen flex justify-center items-center px-4 md:px-10 lg:px-40 bg-[url('/data/images/project/bg-image.jpg')] bg-cover bg-center relative">
     <img src="/data/images/project/logo.svg" alt="Logo" class="absolute top-8 left-16 z-10 w-32 h-16" />
   </div>
@@ -52,21 +52,21 @@ $validations = flash()->get('validations') ?? [];
             </label>
 
             <div class="flex flex-col mt-4 gap-2">
-        <?php 
+        <?php
         $fields = ['name', 'password', 'email', 'confirm_password'];
-        foreach ($fields as $field) : 
-          if (!empty($validations[$field])) : 
-            foreach ($validations[$field] as $error) : ?>
+foreach ($fields as $field) {
+    if (! empty($validations[$field])) {
+        foreach ($validations[$field] as $error) { ?>
               <div class="flex items-center justify-start text-left">
                 <span class="flex items-center justify-center rounded-full w-4 h-4 bg-red-600">
                   <i class="ph ph-x text-[0.75rem] text-gray-900 font-bold"></i>
                 </span>
                 <div class="text-gray-100 pl-2 text-sm"><?= htmlspecialchars($error) ?></div>
               </div>
-            <?php endforeach; 
-          endif; 
-        endforeach; 
-        ?>
+            <?php }
+        }
+}
+?>
       </div>
 
             <div class="card-actions w-full mt-4 flex items-center justify-center">

@@ -58,19 +58,19 @@ $message = flash()->get('successfully_registered');
           <div class="flex flex-col gap-1">
             <?php
             $fields = ['password'];
-            foreach ($fields as $field) :
-              if (!empty($validations[$field])) :
-                foreach ($validations[$field] as $error) : ?>
+foreach ($fields as $field) {
+    if (! empty($validations[$field])) {
+        foreach ($validations[$field] as $error) { ?>
                   <div class="flex items-center justify-start text-left">
                     <span class="flex items-center justify-center rounded-full w-4 h-4 bg-red-600">
                       <i class="ph ph-x text-[0.75rem] text-gray-900 font-bold"></i>
                     </span>
                     <div class="text-gray-100 pl-2 text-sm"><?= htmlspecialchars($error) ?></div>
                   </div>
-            <?php endforeach;
-              endif;
-            endforeach;
-            ?>
+            <?php }
+        }
+}
+?>
           </div>
           <button
             class="mt-8 w-full btn bg-brand hover:bg-gray-300 rounded-xl content-inverse">

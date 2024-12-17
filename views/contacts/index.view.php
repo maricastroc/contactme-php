@@ -65,7 +65,7 @@ $message = flash()->get('errors');
 
 <div class="lg:max-h-[85vh] overflow-auto w-full p-6 lg:p-10 rounded-3xl flex bg-secondary flex-col gap-4">
 
-  <?php if (!empty($message)) : ?>
+  <?php if (! empty($message)) { ?>
     <p class="text-indigo-400 font-mono mb-2 text-center">
     <div class="toast toast-top toast-end" id="toastMessage">
       <div class="alert alert-error bg-red-500">
@@ -73,12 +73,12 @@ $message = flash()->get('errors');
       </div>
     </div>
     </p>
-  <?php endif; ?>
+  <?php } ?>
 
-  <?php require base_path("views/partials/_add_contact_modal.view.php"); ?>
-  <?php require base_path("views/partials/_edit_contact_modal.view.php"); ?>
-  <?php require base_path("views/partials/_delete_contact_modal.view.php"); ?>
-  <?php require base_path("views/partials/_show_data_modal.view.php"); ?>
+  <?php require base_path('views/partials/_add_contact_modal.view.php'); ?>
+  <?php require base_path('views/partials/_edit_contact_modal.view.php'); ?>
+  <?php require base_path('views/partials/_delete_contact_modal.view.php'); ?>
+  <?php require base_path('views/partials/_show_data_modal.view.php'); ?>
 
   <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between w-full">
     <h1 class="text-2xl content-primary font-bold">Contacts List</h1>
@@ -95,20 +95,20 @@ $message = flash()->get('errors');
 
       <button class="btn bg-tertiary font-normal min-h-[2.5rem] h-[2.5rem] content-primary rounded-xl" onclick="add_contact.showModal()">+ Add Contact</button>
 
-      <?php if (session()->get('show')): ?>
+      <?php if (session()->get('show')) { ?>
           <a href="hide" class="btn border border-tertiary btn-outline font-normal min-h-[2.5rem] h-[2.5rem] content-heading rounded-xl">
           <i class="ph ph-lock-key-open text-lg font-bold"></i>
           </a>
-          <?php else: ?>
+          <?php } else { ?>
             <button onclick="show_data.showModal()" class="btn border border-tertiary btn-outline font-normal min-h-[2.5rem] h-[2.5rem] content-heading rounded-xl">
         <i class="ph ph-lock-key text-lg font-bold"></i>
       </button>
-            <?php endif; ?>
+            <?php } ?>
     </div>
   </div>
 
   <div class="flex gap-10 mt-6 flex-col lg:flex-row">
-    <?php require base_path("views/partials/_filter-bar.view.php"); ?>
+    <?php require base_path('views/partials/_filter-bar.view.php'); ?>
 
     <div class="overflow-x-auto w-full lg:max-h-[60vh]">
       <table class="table table-auto w-full">
@@ -122,7 +122,7 @@ $message = flash()->get('errors');
         </thead>
         <tbody>
           <?php
-          foreach ($contacts as $key => $contact) : ?>
+          foreach ($contacts as $key => $contact) { ?>
             <tr class="border-b border-placeholder">
               <td>
                 <div class="flex items-center gap-3">
@@ -133,7 +133,7 @@ $message = flash()->get('errors');
                   </div>
                   <div>
                     <div class="content-body font-normal"><?= $contact->name ?></div>
-                    <div class="text-sm content-body font-normal opacity-50"><?= $contact->contact('description') ?></div>
+                    <div class="text-sm content-body font-normal opacity-50"><?= $contact->contact('description') ?> </div>
                   </div>
                 </div>
               </td>
@@ -141,14 +141,14 @@ $message = flash()->get('errors');
               <td class="content-body font-normal"><?= $contact->contact('email') ?></td>
               <th>
                 <div class="flex">
-                  <button <?php if (!session()->get('show')): ?> disabled <?php endif; ?> onclick="openEditModal(this)" class="btn border disabled:bg-zinc-900 border-tertiary btn-outline px-3 rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl" data-id="<?= $contact->id ?>" data-name="<?= htmlspecialchars($contact->name) ?>" data-phone="<?= htmlspecialchars($contact->contact('phone')) ?>" data-email="<?= htmlspecialchars($contact->contact('email')) ?>" data-description="<?= htmlspecialchars($contact->contact('description')) ?>" data-avatar="<?= htmlspecialchars($contact->avatar_url ?? '') ?>">
+                  <button <?php if (! session()->get('show')) { ?> disabled <?php } ?> onclick="openEditModal(this)" class="btn border disabled:bg-zinc-900 border-tertiary btn-outline px-3 rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl" data-id="<?= $contact->id ?>" data-name="<?= htmlspecialchars($contact->name) ?>" data-phone="<?= htmlspecialchars($contact->contact('phone')) ?>" data-email="<?= htmlspecialchars($contact->contact('email')) ?>" data-description="<?= htmlspecialchars($contact->contact('description')) ?>" data-avatar="<?= htmlspecialchars($contact->avatar_url ?? '') ?>">
                     <i class="ph ph-pencil-simple text-md font-bold"></i> Edit
                   </button>
                   <button data-id="<?= $contact->id ?>" id="delete_contact" onclick="openDeleteModal(this)" class="ml-2 btn border border-tertiary btn-outline w-[2rem] rounded-lg font-normal min-h-[2rem] h-[2rem] content-primary rounded-xl"><i class="ph ph-trash-simple text-md font-bold"></i></button>
                 </div>
               </th>
             </tr>
-          <?php endforeach; ?>
+          <?php } ?>
         </tbody>
       </table>
     </div>

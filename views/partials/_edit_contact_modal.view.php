@@ -4,7 +4,7 @@ use function Core\flash;
 use function Core\old;
 
 $selectedContact = flash()->get('selected_contact') ?? [];
-
+var_dump($selectedContact);
 $validations = flash()->get('validations') ?? [];
 ?>
 
@@ -72,6 +72,8 @@ $validations = flash()->get('validations') ?? [];
         </label>
       </div>
 
+
+
       <label class="form-control w-full">
         <div class="label">
           <span class="label-text">Name</span>
@@ -101,21 +103,21 @@ $validations = flash()->get('validations') ?? [];
       </label>
 
       <div class="flex flex-col gap-1">
-        <?php 
+        <?php
         $fields = ['name', 'phone', 'email', 'avatar_url', 'description'];
-        foreach ($fields as $field) : 
-          if (!empty($validations[$field])) : 
-            foreach ($validations[$field] as $error) : ?>
+foreach ($fields as $field) {
+    if (! empty($validations[$field])) {
+        foreach ($validations[$field] as $error) { ?>
               <div class="flex items-center justify-start text-left">
                 <span class="flex items-center justify-center rounded-full w-4 h-4 bg-red-600">
                   <i class="ph ph-x text-[0.75rem] text-gray-900 font-bold"></i>
                 </span>
                 <div class="text-gray-100 pl-2 text-sm"><?= htmlspecialchars($error) ?></div>
               </div>
-            <?php endforeach; 
-          endif; 
-        endforeach; 
-        ?>
+            <?php }
+        }
+}
+?>
       </div>
 
       <div class="flex items-center justify-end">

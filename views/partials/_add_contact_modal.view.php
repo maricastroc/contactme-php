@@ -99,21 +99,21 @@ $message = flash()->get('successfully_registered');
       </label>
 
       <div class="flex flex-col gap-1">
-        <?php 
+        <?php
         $fields = ['name', 'phone', 'email', 'avatar_url', 'description'];
-        foreach ($fields as $field) : 
-          if (!empty($validations[$field])) : 
-            foreach ($validations[$field] as $error) : ?>
+foreach ($fields as $field) {
+    if (! empty($validations[$field])) {
+        foreach ($validations[$field] as $error) { ?>
               <div class="flex items-center justify-start text-left">
                 <span class="flex items-center justify-center rounded-full w-4 h-4 bg-red-600">
                   <i class="ph ph-x text-[0.75rem] text-gray-900 font-bold"></i>
                 </span>
                 <div class="text-gray-100 pl-2 text-sm"><?= htmlspecialchars($error) ?></div>
               </div>
-            <?php endforeach; 
-          endif; 
-        endforeach; 
-        ?>
+            <?php }
+        }
+}
+?>
       </div>
 
       <div class="flex items-center justify-end">
@@ -153,7 +153,7 @@ function previewImage(event) {
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("add_contact");
-    const hasValidations = <?= json_encode(!empty($validations)); ?>;
+    const hasValidations = <?= json_encode(! empty($validations)); ?>;
 
     if (hasValidations) {
       modal.showModal();

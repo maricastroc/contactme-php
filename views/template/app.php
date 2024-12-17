@@ -61,7 +61,7 @@ $message = flash()->get('successfully_updated') ?: flash()->get('updated_user') 
 </head>
 
 <body class="bg-[#111111] overflow-auto lg:overflow-hidden text-neutral-100 flex flex-col lg:flex-row justify-center h-full lg:max-h-[100vh]">
-<?php if (!empty($message)) : ?>
+<?php if (! empty($message)) { ?>
     <p class="text-indigo-400 font-mono mb-2 text-center">
     <div class="toast toast-top toast-end" id="toastMessage">
       <div class="alert alert-success bg-brand">
@@ -69,9 +69,9 @@ $message = flash()->get('successfully_updated') ?: flash()->get('updated_user') 
       </div>
     </div>
     </p>
-  <?php endif; ?>
+  <?php } ?>
 
-  <?php require base_path("views/partials/_edit_user_modal.view.php"); ?>
+  <?php require base_path('views/partials/_edit_user_modal.view.php'); ?>
 
   <div class="flex flex-col md:flex-row md:gap-10 items-center justify-center gap-3 lg:flex-col lg:gap-0 lg:justify-between max-h-screen py-10 pl-10">
     <img src="/data/images/project/small_logo.svg" alt="Logo" class="z-10 w-8 h-8" />

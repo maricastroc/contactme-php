@@ -1,86 +1,89 @@
-<?php 
+<?php
 
 namespace Core;
 
-use function Core\abort;
+class Route
+{
+    public $routes = [];
 
-class Route {
+    public function get($uri, $controller, $middleware = null)
+    {
 
-  public $routes = [];
+        $this->addRoute('GET', $uri, $controller, $middleware);
 
-  public function get($uri, $controller, $middleware = null) {
-
-    $this->addRoute('GET', $uri, $controller, $middleware);
-
-    return $this;
-  }
-
-  public function addRoute($httpMethod, $uri, $controller, $middleware = null) {
-
-    if (is_string($controller)) {
-      $data = [
-        'class' => $controller,
-        'method' => '__invoke',
-        'middleware' => $middleware
-      ];
+        return $this;
     }
 
+    public function addRoute($httpMethod, $uri, $controller, $middleware = null)
+    {
 
-    if (is_array($controller)) {
-      $data = [
-        'class' => $controller[0],
-        'method' => $controller[1],
-        'middleware' => $middleware,
-      ];
+        if (is_string($controller)) {
+            $data = [
+                'class' => $controller,
+                'method' => '__invoke',
+                'middleware' => $middleware,
+            ];
+        }
+
+        if (is_array($controller)) {
+            $data = [
+                'class' => $controller[0],
+                'method' => $controller[1],
+                'middleware' => $middleware,
+            ];
+        }
+
+        $this->routes[$httpMethod][$uri] = $data;
+
+        return $this;
     }
 
-    $this->routes[$httpMethod][$uri] = $data;
+    public function post($uri, $controller, $middleware = null)
+    {
 
-    return $this;
-  }
+        $this->addRoute('POST', $uri, $controller, $middleware);
 
-  public function post($uri, $controller, $middleware = null) {
-
-    $this->addRoute('POST', $uri, $controller, $middleware);
-
-    return $this;
-  }
-
-  public function put($uri, $controller, $middleware = null) {
-
-    $this->addRoute('PUT', $uri, $controller, $middleware);
-
-    return $this;
-  }
-
-  public function delete($uri, $controller, $middleware = null) {
-
-    $this->addRoute('DELETE', $uri, $controller, $middleware);
-
-    return $this;
-  }
-
-  public function run() {
-    $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-    
-    $httpMethod = request()->post('__method', $_SERVER['REQUEST_METHOD']);
-
-    if (!isset($this->routes[$httpMethod][$uri])) {
-      abort((404));
+        return $this;
     }
 
-    $routeInfo = $this->routes[$httpMethod][$uri];
+    public function put($uri, $controller, $middleware = null)
+    {
 
-    $class = $routeInfo['class'];
-    $method = $routeInfo['method'];
-    $middleware = $routeInfo['middleware'];
+        $this->addRoute('PUT', $uri, $controller, $middleware);
 
-    if ($middleware) {
-      $m = new $middleware();
-      $m -> handle();
+        return $this;
     }
 
-    $c = new $class();
-    $c->$method();
-  }
+    public function delete($uri, $controller, $middleware = null)
+    {
+
+        $this->addRoute('DELETE', $uri, $controller, $middleware);
+
+        return $this;
+    }
+
+    public function run()
+    {
+        $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+
+        $httpMethod = request()->post('__method', $_SERVER['REQUEST_METHOD']);
+
+        if (! isset($this->routes[$httpMethod][$uri])) {
+            abort((404));
+        }
+
+        $routeInfo = $this->routes[$httpMethod][$uri];
+
+        $class = $routeInfo['class'];
+        $method = $routeInfo['method'];
+        $middleware = $routeInfo['middleware'];
+
+        if ($middleware) {
+            $m = new $middleware;
+            $m->handle();
+        }
+
+        $c = new $class;
+        $c->$method();
+    }
 }

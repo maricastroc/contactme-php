@@ -9,7 +9,6 @@ use function Core\View;
 
 class IndexController
 {
-
     public function index()
     {
         $search = request()->get('search', '');

@@ -18,7 +18,7 @@
 
 use function Core\base_path;
 
- require base_path("views/{$view}.view.php"); ?>
+require base_path("views/{$view}.view.php"); ?>
 </body>
 
 </html>

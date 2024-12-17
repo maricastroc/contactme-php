@@ -15,9 +15,9 @@
   ";
 
   foreach ($alphabet as $letter) {
-    $isSelected = $letter === $selectedLetter ? 'text-[#C4F120]' : 'text-gray-400';
+      $isSelected = $letter === $selectedLetter ? 'text-[#C4F120]' : 'text-gray-400';
 
-    echo "
+      echo "
       <form action='/contacts' class='m-1'>
         <input type='hidden' name='letter' value='$letter'>
         <button type='submit' class='p-1 $isSelected hover:text-[#C4F120] rounded'>

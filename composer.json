@@ -16,5 +16,10 @@
             "email": "marianacastrorc@gmail.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "laravel/pint": "^1.18"
+    },
+    "require": {
+        "nesbot/carbon": "^3.8"
+    }
 }
