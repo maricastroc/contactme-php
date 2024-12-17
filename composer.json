@@ -1,0 +1,20 @@
+{
+    "name": "helanocastro/contactme",
+    "autoload": {
+        "psr-4": {
+            "Helanocastro\\Lockbox\\": "src/",
+            "Core\\": "Core/",
+            "App\\": "App/"
+        },
+        "files": [
+            "./Core/functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Mariana",
+            "email": "marianacastrorc@gmail.com"
+        }
+    ],
+    "require": {}
+}

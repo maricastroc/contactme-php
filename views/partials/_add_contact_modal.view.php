@@ -46,7 +46,7 @@ $message = flash()->get('successfully_registered');
 </style>
 
 <dialog id="add_contact" class="modal">
-  <div class="modal-box bg-primary shadow-xl">
+  <div class="modal-box bg-secondary shadow-xl">
     <form method="dialog">
       <button class="btn btn-sm btn-ghost absolute right-2 top-2">✕</button>
     </form>
@@ -55,7 +55,7 @@ $message = flash()->get('successfully_registered');
     <form action="/contacts" method="post" class="mt-10 flex flex-col space-y-6" enctype="multipart/form-data">
 
       <div class="flex flex-col w-full items-center justify-center">
-        <div class="flex items-center justify-center bg-secondary mt-4 w-[6rem] rounded-xl">
+        <div class="flex items-center justify-center bg-secondary border-2 border-gray-500 mt-4 w-[6rem] rounded-xl">
           <div id="image_preview_container" class="w-24 h-24 flex justify-center items-center">
             <i id="user_icon" class="ph ph-user text-[4rem] text-gray-500"></i>
             <img id="image_preview" src="" alt="Image Preview" class="w-[6rem] h-[6rem] rounded-xl object-cover hidden" />

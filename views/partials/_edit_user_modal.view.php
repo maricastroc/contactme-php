@@ -45,7 +45,7 @@ $validations = flash()->get('validations') ?? [];
 </style>
 
 <dialog id="edit_user" class="modal">
-  <div class="modal-box bg-primary shadow-xl">
+  <div class="modal-box bg-secondary shadow-xl">
     <form method="dialog">
       <button class="btn btn-sm btn-ghost absolute right-2 top-2">✕</button>
     </form>
